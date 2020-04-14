@@ -55,9 +55,9 @@ const styles = theme => ({
         right: theme.spacing(1),
         top: theme.spacing(1),
         color: theme.palette.grey[500],
-    },table: {
+    }, table: {
         minWidth: 650,
-      },
+    },
 });
 class CalculationConfig extends Component {
     state = {
@@ -110,17 +110,17 @@ class CalculationConfig extends Component {
     };
 
     calculate = () => {
-        const {step } = this.state;
+        const { step } = this.state;
         let { result, equations } = this.props;
-        let value =(eval(result) || "") + "";
+        let value = (eval(result) || "") + "";
         try {
 
-            equations[step] = {...equations[step], studentAnswer:value}
+            equations[step] = { ...equations[step], studentAnswer: value }
 
             this.props.updateResultState(value)
             this.props.updateEquationsState(equations);
             if (equations.length === step) {
-                this.handleClose()  
+                // this.handleClose()
             } else { this.nextStep() }
 
             this.reset();
@@ -217,7 +217,7 @@ class CalculationConfig extends Component {
                     <Button variant="contained" onClick={this.handleSelectChange}>START</Button>
                 </div>
 
-                { step < equations.length ? 
+                {open ?
                     <Modal disableBackdropClick
                         aria-labelledby="transition-modal-title"
                         aria-describedby="transition-modal-description"
@@ -230,39 +230,42 @@ class CalculationConfig extends Component {
                             timeout: 500,
                         }}
                     >
-
                         <Fade in={open}>
-                            <div className={classes.paper}>
-                                <h2 id="simple-modal-title">{equations[step].equation}</h2>
-                                 <Results result={result} />
-                                <Calculator onClick={this.onClick} /> 
-                            </div>
-                        </Fade>
-                    </Modal>:null} 
-                    {step > 0 && step === equations.length 
-                     ? <TableContainer component={Paper}>
-                     <Table className={classes.table} size="small" aria-label="a dense table">
-                       <TableHead>
-                         <TableRow>
-                           <TableCell>Equation</TableCell>
-                           <TableCell align="right">Answer</TableCell>
-                           <TableCell align="right">Student Answer</TableCell>
-                         </TableRow>
-                       </TableHead>
-                       <TableBody>
-                         {equations.map((row) => (
-                           <TableRow key={row.equation} style={row.correctAnswer === row.studentAnswer ? {backgroundColor : 'green'} : {backgroundColor:'red'  }}>
-                             <TableCell component="th" scope="row">
-                               {row.equation}
-                             </TableCell>
-                             <TableCell align="right">{row.correctAnswer}</TableCell>
-                             <TableCell align="right">{row.studentAnswer}</TableCell>
-                           </TableRow>
-                         ))}
-                       </TableBody>
-                     </Table>
-                   </TableContainer> :null}
+                            {step > 0 && step === equations.length
+                                ? <div className={classes.paper}>
+                                    <TableContainer component={Paper}>
+                                        <Table className={classes.table} size="small" aria-label="a dense table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Equation</TableCell>
+                                                    <TableCell align="right">Answer</TableCell>
+                                                    <TableCell align="right">Student Answer</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {equations.map((row) => (
+                                                    <TableRow key={row.equation} style={row.correctAnswer === row.studentAnswer ? { backgroundColor: 'green' } : { backgroundColor: 'red' }}>
+                                                        <TableCell component="th" scope="row">
+                                                            {row.equation}
+                                                        </TableCell>
+                                                        <TableCell align="right">{row.correctAnswer}</TableCell>
+                                                        <TableCell align="right">{row.studentAnswer}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                    <Button onClick={this.handleClose}>CLOSE</Button>
+                                </div>
+                                : <div className={classes.paper}>
+                                    <h2 id="simple-modal-title">{equations[step].equation}</h2>
+                                    <h2>{step}</h2>
+                                    <Results result={result} />
+                                    <Calculator onClick={this.onClick} />
+                                </div>}
 
+                        </Fade>
+                    </Modal> : null}
             </Container>
         );
     }
