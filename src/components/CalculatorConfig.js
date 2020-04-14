@@ -27,6 +27,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 
 const styles = theme => ({
@@ -39,6 +40,7 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        minWidth: '550px'
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
@@ -55,14 +57,15 @@ const styles = theme => ({
         right: theme.spacing(1),
         top: theme.spacing(1),
         color: theme.palette.grey[500],
-    }, table: {
+    },
+    table: {
         minWidth: 650,
     },
 });
 class CalculationConfig extends Component {
     state = {
         step: 0,
-        start :false
+        start: false
     }
 
     nextStep = () => {
@@ -143,7 +146,7 @@ class CalculationConfig extends Component {
         let { result } = this.props;
         this.props.updateResultState(result.slice(0, -1))
     };
-    
+
     convertOperation = (value) => {
         let name;
         switch (value) {
@@ -163,6 +166,25 @@ class CalculationConfig extends Component {
         return name;
     }
 
+    convertOperationToDisplay = (value) => {
+        let name;
+        switch (value) {
+            case 'substract':
+                name = '<span>&#8722;</span>';
+                break;
+            case 'addiction':
+                name = '<span>&#43;</span>';
+                break;
+            case 'multiplication':
+                name = '<span>&#215;</span>';
+                break;
+            case 'division':
+                name = '<span>&#247;</span>';
+                break;
+        }
+        return name;
+    }
+
     handleCountChange = (event) => {
         this.props.updateEquationCountState(event.target.value)
     };
@@ -175,16 +197,38 @@ class CalculationConfig extends Component {
         const { operation, count } = this.props;
         let eq = [];
         const op = this.convertOperation(operation);
+        const opDisplay = this.convertOperationToDisplay(operation);
+
         if (!_.isEmpty(operation) && count > 0) {
-            for (let i = 0; i < count; i++) {
+            while (eq.length < count) {
                 let max = 12
                 let min = Math.floor(Math.random() * max);
                 let b = Math.floor(Math.random() * (max - min + 1)) + min;
-                eq.push({ equation: b + op + min, correctAnswer: (eval(b + op + min) || 0) + 0, studentAnswer: 0 });
+                let eValue = (eval(b + op + min) || 0) + 0;
+                let elem = { equation: b + opDisplay + min, correctAnswer: eValue, studentAnswer: 0, operation: op };
+                if (!_.includes(eq, elem)) {
+                    if (operation === 'division') {
+                        if (this.number_test(eValue)) {
+                            eq.push(elem);
+                        }
+                    } else {
+                        eq.push(elem);
+                    }
+                }
+
             }
         }
         this.props.updateEquationsState(eq);
         this.props.updateModalEquationsState(true);
+    };
+
+    number_test = (n) => {
+        var result = (n - Math.floor(n)) !== 0;
+
+        if (result)
+            return false;
+        else
+            return true;
     };
 
     render() {
@@ -240,10 +284,10 @@ class CalculationConfig extends Component {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                {equations.map((row) => (
-                                                    <TableRow key={row.equation} style={row.correctAnswer === row.studentAnswer ? { backgroundColor: 'green' } : { backgroundColor: 'red' }}>
+                                                {equations.map((row,index) => (
+                                                    <TableRow key={index} style={row.correctAnswer === row.studentAnswer ? { backgroundColor: 'green' } : { backgroundColor: 'red' }}>
                                                         <TableCell component="th" scope="row">
-                                                            {row.equation}
+                                                            <div dangerouslySetInnerHTML={{ __html: `${row.equation}` }} />
                                                         </TableCell>
                                                         <TableCell align="right">{row.correctAnswer}</TableCell>
                                                         <TableCell align="right">{row.studentAnswer}</TableCell>
@@ -255,8 +299,15 @@ class CalculationConfig extends Component {
                                     <Button onClick={this.handleModalClose}>CLOSE</Button>
                                 </div>
                                 : <div className={classes.paper}>
-                                    <h2 id="simple-modal-title">{equations[step].equation}</h2>
-                                    <h2>{step + 1}</h2>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm={6}>
+                                            <Paper className={classes.paper}><div>{step + 1}/{equations.length}</div></Paper>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Paper className={classes.paper}><h2 dangerouslySetInnerHTML={{ __html: `${equations[step].equation}` }}></h2></Paper>
+                                        </Grid>
+                                    </Grid>
+
                                     <Results result={result} />
                                     <Calculator onClick={this.onClick} />
                                 </div>}
