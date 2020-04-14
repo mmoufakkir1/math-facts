@@ -1,13 +1,39 @@
 import { combineReducers } from 'redux';
 import {
   HEADER_STATE,
+  OPERATION_STATE,
+  RESULT_STATE,
+  EQUATION_COUNT_STATE,
+  EQUATIONS_STATE,
+  MODAL_EQUATION_STATE
 } from '../actions/main';
 
 export const initialHeaderState = {
   header: 'Math Facts'
 }
 
-const getheader = (state = initialHeaderState, action) => {
+export const initialOperationState = {
+  operation: ''
+}
+
+export const initialResultState = {
+  result: ''
+}
+
+export const initialEquationCountState = {
+  count: 0
+}
+
+export const initialEquationsState = {
+  equations: []
+}
+
+
+export const initialModalEquationsState = {
+  open: false
+}
+
+const getHeader = (state = initialHeaderState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -27,7 +53,115 @@ const getheader = (state = initialHeaderState, action) => {
   }
 }
 
+
+const getResult = (state = initialResultState, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+
+    case RESULT_STATE:
+      {
+        return {
+          ...state,
+          result: payload,
+        }
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+}
+
+const getOperation = (state = initialOperationState, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+
+    case OPERATION_STATE:
+      {
+        return {
+          ...state,
+          operation: payload,
+        }
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+}
+
+
+const getEquationCount = (state = initialEquationCountState, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+
+    case EQUATION_COUNT_STATE:
+      {
+        return {
+          ...state,
+          count: payload,
+        }
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+}
+
+
+const getEquations = (state = initialEquationsState, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+
+    case EQUATIONS_STATE:
+      {
+        return {
+          ...state,
+          equations: payload,
+        }
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+}
+
+const getModalEquations = (state = initialModalEquationsState, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+
+    case MODAL_EQUATION_STATE:
+      {
+        return {
+          ...state,
+          open: payload,
+        }
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+}
+
 const main = combineReducers({
-  getheader
+  getHeader,
+  getOperation,
+  getResult,
+  getEquationCount,
+  getEquations,
+  getModalEquations
 });
 export default main;
