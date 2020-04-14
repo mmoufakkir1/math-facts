@@ -21,7 +21,7 @@ export const initialResultState = {
 }
 
 export const initialEquationCountState = {
-  count: 0
+  count: 10
 }
 
 export const initialEquationsState = {

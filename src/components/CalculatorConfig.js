@@ -62,7 +62,7 @@ const styles = theme => ({
 class CalculationConfig extends Component {
     state = {
         step: 0,
-        inputNumber: 0
+        start :false
     }
 
     nextStep = () => {
@@ -79,12 +79,18 @@ class CalculationConfig extends Component {
         })
     }
 
-    handleClickOpen = () => {
+    handleModalOpen = () => {
         this.props.updateModalEquationsState(true);
     };
 
-    handleClose = () => {
+    handleModalClose = () => {
+        this.props.updateEquationCountState(10);
+        this.props.updateEquationsState([]);
         this.props.updateModalEquationsState(false);
+        this.props.updateResultState('');
+        this.setState({
+            step: 0
+        })
     };
 
 
@@ -102,8 +108,7 @@ class CalculationConfig extends Component {
             this.backspace()
         }
         else {
-
-            if (parseInt(button, 10)) {
+            if (button * 1000 >= 0) {
                 this.props.updateResultState(result + button)
             }
         }
@@ -112,7 +117,7 @@ class CalculationConfig extends Component {
     calculate = () => {
         const { step } = this.state;
         let { result, equations } = this.props;
-        let value = (eval(result) || "") + "";
+        let value = (eval(result) || 0) + 0;
         try {
 
             equations[step] = { ...equations[step], studentAnswer: value }
@@ -120,7 +125,7 @@ class CalculationConfig extends Component {
             this.props.updateResultState(value)
             this.props.updateEquationsState(equations);
             if (equations.length === step) {
-                // this.handleClose()
+                // this.handleModalClose()
             } else { this.nextStep() }
 
             this.reset();
@@ -138,6 +143,7 @@ class CalculationConfig extends Component {
         let { result } = this.props;
         this.props.updateResultState(result.slice(0, -1))
     };
+    
     convertOperation = (value) => {
         let name;
         switch (value) {
@@ -161,7 +167,7 @@ class CalculationConfig extends Component {
         this.props.updateEquationCountState(event.target.value)
     };
 
-    handleChange = (event) => {
+    handleRadioChange = (event) => {
         this.props.updateOperationState(event.target.value);
     };
 
@@ -170,11 +176,11 @@ class CalculationConfig extends Component {
         let eq = [];
         const op = this.convertOperation(operation);
         if (!_.isEmpty(operation) && count > 0) {
-            for (let i = 0; i < count + 1; i++) {
+            for (let i = 0; i < count; i++) {
                 let max = 12
                 let min = Math.floor(Math.random() * max);
                 let b = Math.floor(Math.random() * (max - min + 1)) + min;
-                eq.push({ equation: b + op + min, correctAnswer: (eval(b + op + min) || "") + "", studentAnswer: 0 });
+                eq.push({ equation: b + op + min, correctAnswer: (eval(b + op + min) || 0) + 0, studentAnswer: 0 });
             }
         }
         this.props.updateEquationsState(eq);
@@ -184,38 +190,29 @@ class CalculationConfig extends Component {
     render() {
         const { step } = this.state;
         const { classes, operation, count, equations, open, result } = this.props;
-        console.log('equations ' + JSON.stringify(equations))
-        console.log('result ' + result)
         return (
             <Container>
                 <FormControl component="fieldset">
                     <FormLabel component="legend">Choose Math Operation</FormLabel>
-                    <RadioGroup row aria-label="operation" name="mathOperation" value={operation} defaultValue="substract" onChange={this.handleChange}>
+                    <RadioGroup row aria-label="operation" name="mathOperation" value={operation} defaultValue="substract" onChange={this.handleRadioChange}>
                         <FormControlLabel value="substract" control={<Radio />} label="substract" />
                         <FormControlLabel value="addiction" control={<Radio />} label="addiction" />
                         <FormControlLabel value="multiplication" control={<Radio />} label="multiplication" />
                         <FormControlLabel value="division" control={<Radio />} label="division" />
                     </RadioGroup>
-                </FormControl>
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-filled-label">How many questions ?</InputLabel>
+                    <FormLabel>How many questions ?</FormLabel>
                     <Select
                         labelId="demo-simple-select-filled-label"
                         id="demo-simple-select-filled"
                         value={count}
                         onChange={this.handleCountChange}
                     >
-                        <MenuItem value={0}>
-                            <em>None</em>
-                        </MenuItem>
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
+                    <Button variant="contained" disabled={this.state.start} onClick={this.handleSelectChange}>START</Button>
                 </FormControl>
-                <div>
-                    <Button variant="contained" onClick={this.handleSelectChange}>START</Button>
-                </div>
 
                 {open ?
                     <Modal disableBackdropClick
@@ -223,7 +220,7 @@ class CalculationConfig extends Component {
                         aria-describedby="transition-modal-description"
                         className={classes.modal}
                         open={open}
-                        onClose={this.handleClose}
+                        onClose={this.handleModalClose}
                         closeAfterTransition
                         BackdropComponent={Backdrop}
                         BackdropProps={{
@@ -255,11 +252,11 @@ class CalculationConfig extends Component {
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
-                                    <Button onClick={this.handleClose}>CLOSE</Button>
+                                    <Button onClick={this.handleModalClose}>CLOSE</Button>
                                 </div>
                                 : <div className={classes.paper}>
                                     <h2 id="simple-modal-title">{equations[step].equation}</h2>
-                                    <h2>{step}</h2>
+                                    <h2>{step + 1}</h2>
                                     <Results result={result} />
                                     <Calculator onClick={this.onClick} />
                                 </div>}
