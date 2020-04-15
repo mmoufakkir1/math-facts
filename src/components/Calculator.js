@@ -24,7 +24,7 @@ class Calculator extends Component {
         const { step } = this.props;
         this.props.updateStepperState(step - 1);
     }
-    
+
     onClick = button => {
         let { result } = this.props;
 
@@ -54,10 +54,10 @@ class Calculator extends Component {
 
             this.props.updateResultState(value)
             this.props.updateEquationsState(equations);
-            if (equations.length === step) {
-                // this.handleModalClose()
-            } else { this.nextStep() }
 
+            if (equations.length !== step) {
+               this.nextStep() 
+            }            
             this.reset();
         } catch (e) {
             this.props.updateResultState("error")
