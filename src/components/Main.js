@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { updateHeaderState } from '../actions/main';
-
 import logo from './../styles/img/header1.jpg';
 import './../styles/Main.css';
-
-
-import CalculationPad from './CalculationPad';
 import MenuAppBar from './MenuAppBar'
 import Copyright from './Copyright'
-
+import CalculatorConfig from './CalculatorConfig';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -17,7 +11,7 @@ import Box from '@material-ui/core/Box';
 
 class App extends Component {
   render() {
-    const { header } = this.props;
+    const header = 'Math Facts';
     return (
       <React.Fragment>
         <CssBaseline />
@@ -27,29 +21,15 @@ class App extends Component {
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
               <h1 className="App-title">{header}</h1>
-              {/* <Typography variant="h4" component="h1" gutterBottom align="center">
-              {this.props.header}
-            </Typography> */}
             </header>
-            <CalculationPad />
             <Copyright label={header} />
-          </Box>
+          </Box>          
+        <CalculatorConfig />
         </Container>
       </React.Fragment>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    header: state.main.getHeader.header
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    updateHeaderState: header => dispatch(updateHeaderState(header))
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
 
