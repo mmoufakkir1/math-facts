@@ -31,13 +31,6 @@ class Calculator extends Component {
         if (button === "=" && result.length > 0) {
             this.calculate()
         }
-
-        else if (button === "C") {
-            this.reset()
-        }
-        else if (button === "CE") {
-            this.backspace()
-        }
         else {
             if (button * 1000 >= 0) {
                 this.props.updateResultState(result + button)
@@ -67,12 +60,7 @@ class Calculator extends Component {
 
     reset = () => {
         this.props.updateResultState("")
-    };
-
-    backspace = () => {
-        let { result } = this.props;
-        this.props.updateResultState(result.slice(0, -1))
-    };
+    };    
 
     render() {
         const { classes } = this.props;

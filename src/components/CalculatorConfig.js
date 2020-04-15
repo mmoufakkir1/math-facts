@@ -5,7 +5,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { updateOperationState, updateEquationCountState, updateEquationsState, updateModalEquationsState, updateResultState,updateStepperState } from '../actions/main';
+import { updateOperationState, updateEquationCountState, updateEquationsState, updateModalEquationsState, updateResultState, updateStepperState } from '../actions/main';
 import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux';
 import Select from '@material-ui/core/Select';
@@ -27,7 +27,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {convertOperation , convertOperationToDisplay,number_test} from './../global';
+import { convertOperation, convertOperationToDisplay, number_test } from './../global';
 
 
 const styles = theme => ({
@@ -62,11 +62,11 @@ const styles = theme => ({
         minWidth: 650,
     },
 });
+
 class CalculationConfig extends Component {
     state = {
         start: false
     }
-   
 
     handleModalOpen = () => {
         this.props.updateModalEquationsState(true);
@@ -79,7 +79,6 @@ class CalculationConfig extends Component {
         this.props.updateResultState('');
         this.props.updateStepperState(0);
     };
-    
 
     handleCountChange = (event) => {
         this.props.updateEquationCountState(event.target.value)
@@ -118,11 +117,8 @@ class CalculationConfig extends Component {
         this.props.updateModalEquationsState(true);
     };
 
-    
-
     render() {
-        const { classes, operation, count, equations, open,step } = this.props;
-        console.log('step ' + step)
+        const { classes, operation, count, equations, open, step } = this.props;
         return (
             <Container>
                 <FormControl component="fieldset">
@@ -173,7 +169,7 @@ class CalculationConfig extends Component {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                {equations.map((row,index) => (
+                                                {equations.map((row, index) => (
                                                     <TableRow key={index} style={row.correctAnswer === row.studentAnswer ? { backgroundColor: 'green' } : { backgroundColor: 'red' }}>
                                                         <TableCell component="th" scope="row">
                                                             <div dangerouslySetInnerHTML={{ __html: `${row.equation}` }} />
@@ -197,7 +193,7 @@ class CalculationConfig extends Component {
                                         </Grid>
                                     </Grid>
 
-                                    <Results/>
+                                    <Results />
                                     <Calculator onClick={this.onClick} />
                                 </div>}
 
