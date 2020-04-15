@@ -27,7 +27,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {convertOperation , convertOperationToDisplay} from './../global';
+import {convertOperation , convertOperationToDisplay,number_test} from './../global';
 
 
 const styles = theme => ({
@@ -66,16 +66,7 @@ class CalculationConfig extends Component {
     state = {
         start: false
     }
-
-    nextStep = () => {
-        const { step } = this.props;
-        this.props.updateStepperState(step + 1);
-    }
-
-    prevStep = () => {
-        const { step } = this.props;
-        this.props.updateStepperState(step - 1);
-    }
+   
 
     handleModalOpen = () => {
         this.props.updateModalEquationsState(true);
@@ -113,7 +104,7 @@ class CalculationConfig extends Component {
                 let elem = { equation: b + opDisplay + min, correctAnswer: eValue, studentAnswer: 0, operation: op };
                 if (!_.includes(eq, elem)) {
                     if (operation === 'division') {
-                        if (this.number_test(eValue)) {
+                        if (number_test(eValue)) {
                             eq.push(elem);
                         }
                     } else {
@@ -127,14 +118,7 @@ class CalculationConfig extends Component {
         this.props.updateModalEquationsState(true);
     };
 
-    number_test = (n) => {
-        var result = (n - Math.floor(n)) !== 0;
-
-        if (result)
-            return false;
-        else
-            return true;
-    };
+    
 
     render() {
         const { classes, operation, count, equations, open,step } = this.props;

@@ -38,3 +38,12 @@ export function convertOperationToDisplay (value)  {
     }
     return name;
 }
+
+export function number_test (n) {
+    var result = (n - Math.floor(n)) !== 0;
+
+    if (result)
+        return false;
+    else
+        return true;
+};
