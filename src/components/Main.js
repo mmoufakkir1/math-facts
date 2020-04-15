@@ -23,7 +23,6 @@ class Main extends Component {
           </Box>
           <CalculatorConfig />
         </Container>
-        <h1>Home page</h1>
       </React.Fragment>
     );
   }

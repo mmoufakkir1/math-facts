@@ -66,7 +66,7 @@ class CalculationConfig extends Component {
         this.state = {
             start: false,
             operation: 'substract',
-            count: 0,
+            count: 10,
             openModal: false,
             step: 0,
             operations: [],
@@ -275,7 +275,7 @@ class CalculationConfig extends Component {
                                     <div className={classes.root}>
                                         <Container style={{ padding: '20px' }}>
                                             <Divider orientation="vertical" flexItem />
-                                            <input type="text" value={inputNumber} onKeyPress={this.handleKeyPad} />
+                                            <input type="text" value={inputNumber} onChange={()=>{}} onKeyPress={this.handleKeyPad} />
                                         </Container>
                                         <ButtonGroup color="primary" aria-label="outlined primary button group">
                                             <Button name="1" onClick={e => this.onClick(e.currentTarget.name)}>1</Button>
