@@ -38,14 +38,14 @@ export default function MenuAppBar() {
             Welcome to Math Facts
           </Typography>
           <nav>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+          <Link variant="button" color="textPrimary" href="/" className={classes.link}>
+              Home
+            </Link>
+            <Link variant="button" color="textPrimary" href="/features" className={classes.link}>
               Features
             </Link>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-              Enterprise
-            </Link>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-              Support
+            <Link variant="button" color="textPrimary" href="/about" className={classes.link}>
+              About
             </Link>
           </nav>
         </Toolbar>
