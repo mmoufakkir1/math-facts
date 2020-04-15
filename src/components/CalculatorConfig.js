@@ -5,8 +5,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { updateOperationState, updateEquationCountState, updateEquationsState, updateModalEquationsState, updateResultState } from '../actions/main';
-import InputLabel from '@material-ui/core/InputLabel';
+import { updateOperationState, updateEquationCountState, updateEquationsState, updateModalEquationsState, updateResultState,updateStepperState } from '../actions/main';
 import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux';
 import Select from '@material-ui/core/Select';
@@ -28,6 +27,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import {convertOperation , convertOperationToDisplay} from './../global';
 
 
 const styles = theme => ({
@@ -64,22 +64,17 @@ const styles = theme => ({
 });
 class CalculationConfig extends Component {
     state = {
-        step: 0,
         start: false
     }
 
     nextStep = () => {
-        const { step } = this.state
-        this.setState({
-            step: step + 1
-        })
+        const { step } = this.props;
+        this.props.updateStepperState(step + 1);
     }
 
     prevStep = () => {
-        const { step } = this.state
-        this.setState({
-            step: step - 1
-        })
+        const { step } = this.props;
+        this.props.updateStepperState(step - 1);
     }
 
     handleModalOpen = () => {
@@ -91,99 +86,9 @@ class CalculationConfig extends Component {
         this.props.updateEquationsState([]);
         this.props.updateModalEquationsState(false);
         this.props.updateResultState('');
-        this.setState({
-            step: 0
-        })
+        this.props.updateStepperState(0);
     };
-
-
-    onClick = button => {
-        let { result } = this.props;
-
-        if (button === "=" && result.length > 0) {
-            this.calculate()
-        }
-
-        else if (button === "C") {
-            this.reset()
-        }
-        else if (button === "CE") {
-            this.backspace()
-        }
-        else {
-            if (button * 1000 >= 0) {
-                this.props.updateResultState(result + button)
-            }
-        }
-    };
-
-    calculate = () => {
-        const { step } = this.state;
-        let { result, equations } = this.props;
-        let value = (eval(result) || 0) + 0;
-        try {
-
-            equations[step] = { ...equations[step], studentAnswer: value }
-
-            this.props.updateResultState(value)
-            this.props.updateEquationsState(equations);
-            if (equations.length === step) {
-                // this.handleModalClose()
-            } else { this.nextStep() }
-
-            this.reset();
-        } catch (e) {
-            this.props.updateResultState("error")
-            this.reset()
-        }
-    };
-
-    reset = () => {
-        this.props.updateResultState("")
-    };
-
-    backspace = () => {
-        let { result } = this.props;
-        this.props.updateResultState(result.slice(0, -1))
-    };
-
-    convertOperation = (value) => {
-        let name;
-        switch (value) {
-            case 'substract':
-                name = '-';
-                break;
-            case 'addiction':
-                name = '+';
-                break;
-            case 'multiplication':
-                name = '*';
-                break;
-            case 'division':
-                name = '/';
-                break;
-        }
-        return name;
-    }
-
-    convertOperationToDisplay = (value) => {
-        let name;
-        switch (value) {
-            case 'substract':
-                name = '<span>&#8722;</span>';
-                break;
-            case 'addiction':
-                name = '<span>&#43;</span>';
-                break;
-            case 'multiplication':
-                name = '<span>&#215;</span>';
-                break;
-            case 'division':
-                name = '<span>&#247;</span>';
-                break;
-        }
-        return name;
-    }
+    
 
     handleCountChange = (event) => {
         this.props.updateEquationCountState(event.target.value)
@@ -196,8 +101,8 @@ class CalculationConfig extends Component {
     handleSelectChange = () => {
         const { operation, count } = this.props;
         let eq = [];
-        const op = this.convertOperation(operation);
-        const opDisplay = this.convertOperationToDisplay(operation);
+        const op = convertOperation(operation);
+        const opDisplay = convertOperationToDisplay(operation);
 
         if (!_.isEmpty(operation) && count > 0) {
             while (eq.length < count) {
@@ -232,8 +137,8 @@ class CalculationConfig extends Component {
     };
 
     render() {
-        const { step } = this.state;
-        const { classes, operation, count, equations, open, result } = this.props;
+        const { classes, operation, count, equations, open,step } = this.props;
+        console.log('step ' + step)
         return (
             <Container>
                 <FormControl component="fieldset">
@@ -308,7 +213,7 @@ class CalculationConfig extends Component {
                                         </Grid>
                                     </Grid>
 
-                                    <Results result={result} />
+                                    <Results/>
                                     <Calculator onClick={this.onClick} />
                                 </div>}
 
@@ -325,7 +230,8 @@ function mapStateToProps(state) {
         count: state.main.getEquationCount.count,
         equations: state.main.getEquations.equations,
         open: state.main.getModalEquations.open,
-        result: state.main.getResult.result
+        result: state.main.getResult.result,
+        step: state.main.getStepper.step,
     };
 }
 
@@ -335,7 +241,8 @@ function mapDispatchToProps(dispatch) {
         updateEquationCountState: count => dispatch(updateEquationCountState(count)),
         updateEquationsState: equations => dispatch(updateEquationsState(equations)),
         updateModalEquationsState: open => dispatch(updateModalEquationsState(open)),
-        updateResultState: result => dispatch(updateResultState(result))
+        updateResultState: result => dispatch(updateResultState(result)),
+        updateStepperState: step => dispatch(updateStepperState(step)),
     };
 }
 

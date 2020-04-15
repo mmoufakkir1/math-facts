@@ -4,6 +4,15 @@ export const   RESULT_STATE = 'RESULT_STATE;'
 export const EQUATION_COUNT_STATE= 'EQUATION_COUNT_STATE';
 export const EQUATIONS_STATE= 'EQUATIONS_STATE';
 export const MODAL_EQUATION_STATE='MODAL_EQUATION_STATE';
+export const STEPPER_STATE = 'STEPPER_STATE';
+
+
+export function updateStepperState(step) {
+    return {
+        type: STEPPER_STATE,
+        payload: step,
+    }
+}
 
 export function updateHeaderState(header) {
     return {

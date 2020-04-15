@@ -5,7 +5,8 @@ import {
   RESULT_STATE,
   EQUATION_COUNT_STATE,
   EQUATIONS_STATE,
-  MODAL_EQUATION_STATE
+  MODAL_EQUATION_STATE,
+  STEPPER_STATE
 } from '../actions/main';
 
 export const initialHeaderState = {
@@ -31,6 +32,31 @@ export const initialEquationsState = {
 
 export const initialModalEquationsState = {
   open: false
+}
+
+
+export const initialStepperState = {
+  step: 0
+}
+
+const getStepper = (state = initialStepperState, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+
+    case STEPPER_STATE:
+      {
+        return {
+          ...state,
+          step: payload,
+        }
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
 }
 
 const getHeader = (state = initialHeaderState, action) => {
@@ -162,6 +188,7 @@ const main = combineReducers({
   getResult,
   getEquationCount,
   getEquations,
-  getModalEquations
+  getModalEquations,
+  getStepper
 });
 export default main;
