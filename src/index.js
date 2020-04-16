@@ -8,24 +8,31 @@ import './styles/index.css';
 import * as serviceWorker from './serviceWorker';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
 import MenuAppBar from './components/MenuAppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Main from './components/Main';
 import Features from './components/Features';
 import About from './components/About';
 import Home from './components/Home';
+import Copyright from './components/Copyright'
+import CustomHeader from './components/CustomHeader'
+
+const header = 'Math Facts';
 
 ReactDOM.render(
   <Provider store={configureStore()}>
     <BrowserRouter>
       <MenuAppBar />
       <CssBaseline />
+      <CustomHeader label={header}/>
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/mathFacts" component={Main} />
         <Route path="/features" component={Features} />
         <Route path="/about" component={About} />
-      </Switch>
+      </Switch>      
+      <Copyright label={header} />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')
