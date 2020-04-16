@@ -41,6 +41,9 @@ export default function MenuAppBar() {
           <Link variant="button" color="textPrimary" href="/" className={classes.link}>
               Home
             </Link>
+            <Link variant="button" color="textPrimary" href="/mathFacts" className={classes.link}>
+              Math Facts
+            </Link>
             <Link variant="button" color="textPrimary" href="/features" className={classes.link}>
               Features
             </Link>

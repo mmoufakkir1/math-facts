@@ -3,7 +3,7 @@ import logo from './../styles/img/header1.jpg';
 import './../styles/Main.css';
 
 import Copyright from './Copyright'
-import CalculatorConfig from './CalculatorConfig';
+import MathFacts from './MathFacts'
 
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -21,7 +21,7 @@ class Main extends Component {
             </header>
             <Copyright label={header} />
           </Box>
-          <CalculatorConfig />
+          <MathFacts />
         </Container>
       </React.Fragment>
     );

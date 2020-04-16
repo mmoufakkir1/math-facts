@@ -13,6 +13,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Main from './components/Main';
 import Features from './components/Features';
 import About from './components/About';
+import Home from './components/Home';
 
 ReactDOM.render(
   <Provider store={configureStore()}>
@@ -20,7 +21,8 @@ ReactDOM.render(
       <MenuAppBar />
       <CssBaseline />
       <Switch>
-        <Route path="/" exact component={Main} />
+        <Route path="/" exact component={Home} />
+        <Route path="/mathFacts" component={Main} />
         <Route path="/features" component={Features} />
         <Route path="/about" component={About} />
       </Switch>

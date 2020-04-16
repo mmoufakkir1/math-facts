@@ -23,7 +23,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { generateEquations } from './../global';
+import { generateEquations } from '../global';
 
 
 const styles = theme => ({
@@ -59,7 +59,7 @@ const styles = theme => ({
 });
 
 
-class CalculationConfig extends Component {
+class MathFacts extends Component {
 
     constructor(props) {
         super(props);
@@ -309,5 +309,5 @@ class CalculationConfig extends Component {
 }
 
 
-export default withStyles(styles)(CalculationConfig);
+export default withStyles(styles)(MathFacts);
 
