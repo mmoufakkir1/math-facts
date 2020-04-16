@@ -303,7 +303,10 @@ class MathFacts extends Component {
                         </Fade>
                     </Modal>
                     : null}
+                     <br />
+                            <br />
             </Container>
+            
         );
     }
 }

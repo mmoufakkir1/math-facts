@@ -36,10 +36,13 @@ export default function MenuAppBar() {
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            Welcome to Math Facts
+
+            <Link variant="button" color="textPrimary" href="/" underline="none" className={classes.link}>
+              Welcome to Math Facts
+            </Link>
           </Typography>
           <nav>
-          <Link variant="button" color="textPrimary" href="/" className={classes.link}>
+            <Link variant="button" color="textPrimary" href="/" className={classes.link}>
               Home
             </Link>
             <Link variant="button" color="textPrimary" href="/mathFacts" className={classes.link}>
