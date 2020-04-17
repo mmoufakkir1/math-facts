@@ -27,6 +27,7 @@ import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { generateEquations } from '../global';
+import './../styles/MathFacts.css'
 
 
 const styles = theme => ({
@@ -284,43 +285,33 @@ class MathFacts extends Component {
                                     <IconButton aria-label="close" className={classes.closeButton} onClick={this.handleModalClose}>
                                         <CloseIcon />
                                     </IconButton>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} sm={6}>
-                                            <Paper className={classes.paperDisplay}><div>{step + 1}/{equations.length}</div></Paper>
-                                        </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <Paper className={classes.paperDisplay}><h2 dangerouslySetInnerHTML={{ __html: `${equations[step].equation}` }}></h2></Paper>
-                                        </Grid>
-                                    </Grid>
                                     <div className={classes.root}>
-                                        <Container style={{ padding: '20px' }} align="center" >
-                                            <Divider orientation="vertical" flexItem />
-                                            <input type="text" style={{ padding: '20px' }} value={inputNumber} onChange={() => { }} onKeyPress={this.handleKeyPad} />
-                                        </Container>
 
-                                        <ButtonGroup color="primary" aria-label="outlined primary button group">
-                                            <Button name="1" onClick={e => this.onClick(e.currentTarget.name)}>1</Button>
-                                            <Button name="2" onClick={e => this.onClick(e.currentTarget.name)}>2</Button>
-                                            <Button name="3" onClick={e => this.onClick(e.currentTarget.name)}>3</Button>
-                                        </ButtonGroup>
-                                        <ButtonGroup color="primary" aria-label="outlined primary button group">
-                                            <Button name="4" onClick={e => this.onClick(e.currentTarget.name)}>4</Button>
-                                            <Button name="5" onClick={e => this.onClick(e.currentTarget.name)}>5</Button>
-                                            <Button name="6" onClick={e => this.onClick(e.currentTarget.name)}>6</Button>
-                                        </ButtonGroup>
-                                        <ButtonGroup color="primary" aria-label="outlined primary button group">
-                                            <Button name="7" onClick={e => this.onClick(e.currentTarget.name)}>7</Button>
-                                            <Button name="8" onClick={e => this.onClick(e.currentTarget.name)}>8</Button>
-                                            <Button name="9" onClick={e => this.onClick(e.currentTarget.name)}>9</Button>
+                                        <div>{step + 1}/{equations.length}</div>
 
-                                        </ButtonGroup>
-                                        <ButtonGroup color="primary" aria-label="outlined primary button group">
+                                        <div><h2 dangerouslySetInnerHTML={{ __html: `${equations[step].equation}` }}></h2></div>
+                                        <div class="calculator">
+                                            <input type="number" style={{ padding: '20px' }} value={inputNumber} onChange={() => { }} onKeyPress={this.handleKeyPad} />
 
-                                            <Button name="C" onClick={e => this.onClick(e.currentTarget.name)}>C</Button>
-                                            <Button name="0" onClick={e => this.onClick(e.currentTarget.name)}>0</Button>
+                                            <div class="calculator-buttons">
+                                                <Button name="1" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>1</Button>
+                                                <Button name="2" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>2</Button>
+                                                <Button name="3" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>3</Button>
+                                                <Button name="C" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>C</Button>
 
-                                            <Button name="=" onClick={e => this.onClick(e.currentTarget.name)}>=</Button>
-                                        </ButtonGroup>
+                                                <Button name="4" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>4</Button>
+                                                <Button name="5" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>5</Button>
+                                                <Button name="6" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>6</Button>
+
+                                                <Button name="7" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>7</Button>
+                                                <Button name="8" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>8</Button>
+                                                <Button name="9" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>9</Button>
+
+                                                <Button name="=" Class="calc-button is-equals" onClick={e => this.onClick(e.currentTarget.name)}>=</Button>
+                                                <Button name="0" Class="calc-button is-zero" onClick={e => this.onClick(e.currentTarget.name)}> 0</Button>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>}
                         </Fade>
