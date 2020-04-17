@@ -1,7 +1,7 @@
-import _ from "lodash"; 
- 
-    
-export function  convertOperation(value)  {
+import _ from "lodash";
+
+
+export function convertOperation(value) {
     let name;
     switch (value) {
         case 'substract':
@@ -20,26 +20,42 @@ export function  convertOperation(value)  {
     return name;
 }
 
-export function convertOperationToDisplay (value)  {
+export function substract() {
+    return '<span>&#8722;</span>';
+}
+
+export function addiction() {
+    return '<span>&#43;</span>';
+}
+
+export function multiplication() {
+    return '<span>&#215;</span>';
+}
+
+export function division() {
+    return '<span>&#247;</span>';
+}
+
+export function convertOperationToDisplay(value) {
     let name;
     switch (value) {
         case 'substract':
-            name = '<span>&#8722;</span>';
+            name = substract();
             break;
         case 'addiction':
-            name = '<span>&#43;</span>';
+            name = addiction();
             break;
         case 'multiplication':
-            name = '<span>&#215;</span>';
+            name = multiplication();
             break;
         case 'division':
-            name = '<span>&#247;</span>';
+            name = division();
             break;
     }
     return name;
 }
 
-export function number_test (n) {
+export function number_test(n) {
     var result = (n - Math.floor(n)) !== 0;
 
     if (result)
@@ -48,29 +64,29 @@ export function number_test (n) {
         return true;
 };
 
-export function generateEquations(operation, count){
-        let eq = [];
-        const op = convertOperation(operation);
-        const opDisplay = convertOperationToDisplay(operation);
+export function generateEquations(operation, count) {
+    let eq = [];
+    const op = convertOperation(operation);
+    const opDisplay = convertOperationToDisplay(operation);
 
-        if (!_.isEmpty(operation) && count > 0) {
-            while (eq.length < count) {
-                let max = 12
-                let min = Math.floor(Math.random() * max);
-                let b = Math.floor(Math.random() * (max - min + 1)) + min;
-                let eValue = (eval(b + op + min) || 0) + 0;
-                let elem = { equation: b + opDisplay + min, correctAnswer: eValue, studentAnswer: 0, operation: op };
-                if (!_.includes(eq, elem)) {
-                    if (operation === 'division') {
-                        if (number_test(eValue)) {
-                            eq.push(elem);
-                        }
-                    } else {
+    if (!_.isEmpty(operation) && count > 0) {
+        while (eq.length < count) {
+            let max = 12
+            let min = Math.floor(Math.random() * max);
+            let b = Math.floor(Math.random() * (max - min + 1)) + min;
+            let eValue = (eval(b + op + min) || 0) + 0;
+            let elem = { equation: b + opDisplay + min, correctAnswer: eValue, studentAnswer: 0, operation: op };
+            if (!_.includes(eq, elem)) {
+                if (operation === 'division') {
+                    if (number_test(eValue)) {
                         eq.push(elem);
                     }
+                } else {
+                    eq.push(elem);
                 }
-
             }
+
         }
-        return eq;
+    }
+    return eq;
 }

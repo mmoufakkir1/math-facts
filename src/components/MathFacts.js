@@ -23,6 +23,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import { generateEquations } from '../global';
 
 
@@ -42,16 +45,24 @@ const styles = theme => ({
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paperDisplay: {
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
     },
     formControl: {
         margin: theme.spacing(1),
         minWidth: 200,
     },
     closeButton: {
-        position: 'absolute',
+        position: 'relative',
         right: theme.spacing(1),
         top: theme.spacing(1),
         color: theme.palette.grey[500],
+        float: 'right',
     },
     table: {
         minWidth: 650,
@@ -139,6 +150,8 @@ class MathFacts extends Component {
 
         if (button === "=" && inputNumber.length > 0) {
             this.calculate()
+        } else if (button === "C") {
+            this.backspace()
         }
         else {
             if (button * 1000 >= 0) {
@@ -149,7 +162,7 @@ class MathFacts extends Component {
 
     calculate = () => {
         let { inputNumber, equations, step } = this.state;
-        let value = (eval(inputNumber) || '') + '';
+        let value = (parseInt(inputNumber) || 0) + 0;
         try {
 
             equations[step] = { ...equations[step], studentAnswer: value }
@@ -179,16 +192,20 @@ class MathFacts extends Component {
         const { inputNumber } = this.state;
 
         let keyCode = event.which || event.keyCode || event.charCode;
-        if (keyCode >= 49 && keyCode <= 57) {
+        console.log('keyCode ' + keyCode)
+        if (keyCode >= 48 && keyCode <= 57) {
             // Numpad keys
             keyCode -= 48;
             const keyValue = String.fromCharCode(keyCode);
+            console.log('keyValue ' + keyValue)
             if (/\+|-/.test(keyValue))
                 event.preventDefault();
-            this.setState({
-                inputNumber: inputNumber + keyCode
-            })
         }
+        console.log('inputNumber ' + inputNumber)
+
+        this.setState({
+            inputNumber: inputNumber + keyCode
+        })
         if (keyCode == 8) this.backspace();
         if (keyCode == 13) this.calculate();
 
@@ -239,7 +256,7 @@ class MathFacts extends Component {
                         <Fade in={openModal}>
                             {step > 0 && step === equations.length
                                 ? <div className={classes.paper}>
-                                    <TableContainer component={Paper}>
+                                    <TableContainer component={Paper} >
                                         <Table className={classes.table} size="small" aria-label="a dense table">
                                             <TableHead>
                                                 <TableRow>
@@ -264,19 +281,23 @@ class MathFacts extends Component {
                                     <Button onClick={this.handleModalClose}>CLOSE</Button>
                                 </div>
                                 : <div className={classes.paper}>
+                                    <IconButton aria-label="close" className={classes.closeButton} onClick={this.handleModalClose}>
+                                        <CloseIcon />
+                                    </IconButton>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm={6}>
-                                            <Paper className={classes.paper}><div>{step + 1}/{equations.length}</div></Paper>
+                                            <Paper className={classes.paperDisplay}><div>{step + 1}/{equations.length}</div></Paper>
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
-                                            <Paper className={classes.paper}><h2 dangerouslySetInnerHTML={{ __html: `${equations[step].equation}` }}></h2></Paper>
+                                            <Paper className={classes.paperDisplay}><h2 dangerouslySetInnerHTML={{ __html: `${equations[step].equation}` }}></h2></Paper>
                                         </Grid>
                                     </Grid>
                                     <div className={classes.root}>
-                                        <Container style={{ padding: '20px' }}>
+                                        <Container style={{ padding: '20px' }} align="center" >
                                             <Divider orientation="vertical" flexItem />
-                                            <input type="text" value={inputNumber} onChange={()=>{}} onKeyPress={this.handleKeyPad} />
+                                            <input type="text" style={{ padding: '20px' }} value={inputNumber} onChange={() => { }} onKeyPress={this.handleKeyPad} />
                                         </Container>
+
                                         <ButtonGroup color="primary" aria-label="outlined primary button group">
                                             <Button name="1" onClick={e => this.onClick(e.currentTarget.name)}>1</Button>
                                             <Button name="2" onClick={e => this.onClick(e.currentTarget.name)}>2</Button>
@@ -294,8 +315,10 @@ class MathFacts extends Component {
 
                                         </ButtonGroup>
                                         <ButtonGroup color="primary" aria-label="outlined primary button group">
+
                                             <Button name="C" onClick={e => this.onClick(e.currentTarget.name)}>C</Button>
                                             <Button name="0" onClick={e => this.onClick(e.currentTarget.name)}>0</Button>
+
                                             <Button name="=" onClick={e => this.onClick(e.currentTarget.name)}>=</Button>
                                         </ButtonGroup>
                                     </div>
@@ -303,10 +326,9 @@ class MathFacts extends Component {
                         </Fade>
                     </Modal>
                     : null}
-                     <br />
-                            <br />
+
             </Container>
-            
+
         );
     }
 }
