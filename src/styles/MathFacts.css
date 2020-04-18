@@ -66,14 +66,13 @@ body          {
 }
 
 /* span across 3 columns */
-.is-zero,
-.is-clear   {
+.is-zero {
   grid-column: span 3;
 }
 
 /* go blue */
 .is-clear   {
-  background: #3572DB;
+  background: rgb(182, 57, 35);
 }
 
 .is-equals {

@@ -1,10 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Container from '@material-ui/core/Container';
+import { makeStyles, AppBar, Toolbar, Typography, Link, Button, Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,15 +31,15 @@ export default function MenuAppBar() {
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-
             <Link variant="button" color="textPrimary" href="/" underline="none" className={classes.link}>
               Welcome to Math Facts
             </Link>
           </Typography>
           <nav>
-            <Link variant="button" color="textPrimary" href="/" className={classes.link}>
+            <Button href="/" color="primary" className={classes.link}>
               Home
-            </Link>
+</Button>
+
             <Link variant="button" color="textPrimary" href="/mathFacts" className={classes.link}>
               Math Facts
             </Link>

@@ -1,32 +1,13 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { withStyles } from '@material-ui/core/styles';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
+import {
+    withStyles, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem, Select, Container
+    , Button, Divider, Modal, Backdrop, Fade, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Grid,
+    ButtonGroup, Box, IconButton
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { generateEquations } from '../global';
+import GridContainer from "./Grid/GridContainer.js";
 import './../styles/MathFacts.css'
 
 
@@ -50,7 +31,7 @@ const styles = theme => ({
         justifyContent: 'center',
     },
     paperDisplay: {
-        backgroundColor: theme.palette.background.paper,
+        background: 'linear-gradient(45deg, #b3e6ff 30%, #e6f7ff 90%)',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
@@ -67,6 +48,30 @@ const styles = theme => ({
     },
     table: {
         minWidth: 650,
+    },
+    root1: {
+        background: 'linear-gradient(45deg, #ff66cc 30%, #ffb3e6 90%)',
+        borderRadius: 3,
+        border: 0,
+        color: 'black',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    },
+    label1: {
+        textTransform: 'capitalize',
+    },
+    rootClear: {
+        background: 'linear-gradient(45deg, #ff66cc 30%, #ffb3e6 90%)',
+        borderRadius: 3,
+        border: 0,
+        color: 'black',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    },
+    labelClear: {
+        textTransform: 'capitalize',
     },
 });
 
@@ -238,8 +243,21 @@ class MathFacts extends Component {
                         <MenuItem value={20}>20</MenuItem>
                         <MenuItem value={30}>30</MenuItem>
                     </Select>
-                    <Button variant="contained" disabled={start} onClick={this.handleSelectChange}>START</Button>
+                    <br />
+                    <br />
+                    <Button variant="outlined"
+                        classes={{
+                            root: classes.root1,
+                            label: classes.label1,
+                        }}
+                        onClick={this.handleSelectChange}>
+                        START
+                                </Button>
+                    <br />
+                    <br />
                 </FormControl>
+                <br />
+                <br />
                 {/* Modal setup */}
                 {openModal ?
                     <Modal disableBackdropClick
@@ -262,8 +280,8 @@ class MathFacts extends Component {
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell>Equation</TableCell>
-                                                    <TableCell align="right">Answer</TableCell>
                                                     <TableCell align="right">Student Answer</TableCell>
+                                                    <TableCell align="right">Answer</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -272,8 +290,8 @@ class MathFacts extends Component {
                                                         <TableCell component="th" scope="row">
                                                             <div dangerouslySetInnerHTML={{ __html: `${row.equation}` }} />
                                                         </TableCell>
-                                                        <TableCell align="right">{row.correctAnswer}</TableCell>
                                                         <TableCell align="right">{row.studentAnswer}</TableCell>
+                                                        <TableCell align="right">{row.correctAnswer}</TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>
@@ -281,7 +299,7 @@ class MathFacts extends Component {
                                     </TableContainer>
                                     <Button onClick={this.handleModalClose}>CLOSE</Button>
                                 </div>
-                                : <div className={classes.paper}>
+                                : <div className={classes.paperDisplay}>
                                     <IconButton aria-label="close" className={classes.closeButton} onClick={this.handleModalClose}>
                                         <CloseIcon />
                                     </IconButton>
@@ -291,13 +309,13 @@ class MathFacts extends Component {
 
                                         <div><h2 dangerouslySetInnerHTML={{ __html: `${equations[step].equation}` }}></h2></div>
                                         <div class="calculator">
-                                            <input type="number" style={{ padding: '20px' }} value={inputNumber} onChange={() => { }} onKeyPress={this.handleKeyPad} />
+                                            <input type="number" readonly style={{ padding: '20px' }} value={inputNumber} onChange={() => { }} onKeyPress={this.handleKeyPad} />
 
                                             <div class="calculator-buttons">
                                                 <Button name="1" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>1</Button>
                                                 <Button name="2" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>2</Button>
                                                 <Button name="3" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>3</Button>
-                                                <Button name="C" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>C</Button>
+                                                <Button name="C" Class="calc-button is-clear" onClick={e => this.onClick(e.currentTarget.name)}>C</Button>
 
                                                 <Button name="4" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>4</Button>
                                                 <Button name="5" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>5</Button>
@@ -317,6 +335,11 @@ class MathFacts extends Component {
                         </Fade>
                     </Modal>
                     : null}
+                <div>
+                    <GridContainer justify="center">
+                        <h3>Thank you for supporting us!</h3>
+                    </GridContainer>
+                </div>
 
             </Container>
 

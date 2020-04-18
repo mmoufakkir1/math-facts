@@ -17,12 +17,13 @@ import About from './components/About';
 import Home from './components/Home';
 import Copyright from './components/Copyright'
 import CustomHeader from './components/CustomHeader'
+import './styles/background.css'
 
 const header = 'Math Facts';
 
 ReactDOM.render(
   <Provider store={configureStore()}>
-    <BrowserRouter>
+    <BrowserRouter> 
       <MenuAppBar />
       <CssBaseline />
       <CustomHeader label={header}/>
