@@ -19,7 +19,7 @@ import Copyright from './components/Copyright'
 import CustomHeader from './components/CustomHeader'
 import './styles/background.css'
 
-const header = 'Math Facts';
+const header = 'City of Math';
 
 ReactDOM.render(
   <Provider store={configureStore()}>

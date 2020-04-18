@@ -32,7 +32,7 @@ export default function MenuAppBar() {
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
             <Link variant="button" color="textPrimary" href="/" underline="none" className={classes.link}>
-              Welcome to Math Facts
+              Welcome to City of Math
             </Link>
           </Typography>
           <nav>
