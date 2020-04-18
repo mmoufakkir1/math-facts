@@ -36,17 +36,16 @@ export default function MenuAppBar() {
             </Link>
           </Typography>
           <nav>
-            <Button href="/" color="primary" className={classes.link}>
+            <Link variant="button" color="textSecondary" underline="hover" href="/" className={classes.link}>
               Home
-</Button>
-
-            <Link variant="button" color="textPrimary" href="/mathFacts" className={classes.link}>
+            </Link>
+            <Link variant="button" color="textSecondary" href="/mathFacts" className={classes.link}>
               Math Facts
             </Link>
-            {/* <Link variant="button" color="textPrimary" href="/features" className={classes.link}>
+            {/* <Link variant="button" color="textSecondary" href="/features" className={classes.link}>
               Features
             </Link> */}
-            <Link variant="button" color="textPrimary" href="/about" className={classes.link}>
+            <Link variant="button" color="textSecondary" href="/about" className={classes.link}>
               About
             </Link>
           </nav>
