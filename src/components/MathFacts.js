@@ -81,7 +81,6 @@ class MathFacts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            start: false,
             operation: 'substract',
             count: 10,
             openModal: false,
@@ -121,7 +120,6 @@ class MathFacts extends Component {
 
     handleModalClose = () => {
         this.setState({
-            start: false,
             operation: 'substract',
             count: 10,
             openModal: false,
@@ -153,7 +151,7 @@ class MathFacts extends Component {
 
     onClick = button => {
         let { inputNumber } = this.state;
-
+console.log('button ' + button)
         if (button === "=" && inputNumber.length > 0) {
             this.calculate()
         } else if (button === "C") {
@@ -198,28 +196,34 @@ class MathFacts extends Component {
         const { inputNumber } = this.state;
 
         let keyCode = event.which || event.keyCode || event.charCode;
-        console.log('keyCode ' + keyCode)
+   
+        if (_.isEqual(keyCode , 8)) this.backspace();
+        if (_.isEqual(keyCode , 13)) this.calculate();
+
         if (keyCode >= 48 && keyCode <= 57) {
             // Numpad keys
             keyCode -= 48;
             const keyValue = String.fromCharCode(keyCode);
-            console.log('keyValue ' + keyValue)
             if (/\+|-/.test(keyValue))
                 event.preventDefault();
-        }
-        console.log('inputNumber ' + inputNumber)
 
-        this.setState({
-            inputNumber: inputNumber + keyCode
-        })
-        if (keyCode == 8) this.backspace();
-        if (keyCode == 13) this.calculate();
+                this.setState({
+                    inputNumber: inputNumber + keyCode
+                })
+        }   
+    }
+    handleBackspace= (event) => {
 
+        let keyCode = event.which || event.keyCode || event.charCode;
+   
+        if (_.isEqual(keyCode , 8)) this.backspace();
+
+       
     }
 
     render() {
         const { classes } = this.props;
-        const { start, operation, count, openModal, step, equations, inputNumber } = this.state;
+        const {  operation, count, openModal, step, equations, inputNumber } = this.state;
 
         return (
             <Container>
@@ -309,7 +313,9 @@ class MathFacts extends Component {
 
                                         <div><h2 dangerouslySetInnerHTML={{ __html: `${equations[step].equation}` }}></h2></div>
                                         <div class="calculator">
-                                            <input type="number" readonly style={{ padding: '20px' }} value={inputNumber} onChange={() => { }} onKeyPress={this.handleKeyPad} />
+                                            <input type="number" readonly style={{ padding: '20px' }} 
+                                            value={inputNumber} onChange={() => { }} onKeyPress={this.handleKeyPad}
+                                            onKeyDown={this.handleBackspace} />
 
                                             <div class="calculator-buttons">
                                                 <Button name="1" Class="calc-button" onClick={e => this.onClick(e.currentTarget.name)}>1</Button>
