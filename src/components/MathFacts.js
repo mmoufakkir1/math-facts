@@ -46,9 +46,6 @@ const styles = theme => ({
         color: theme.palette.grey[500],
         float: 'right',
     },
-    table: {
-        minWidth: 650,
-    },
     root1: {
         background: 'linear-gradient(45deg, #ff66cc 30%, #ffb3e6 90%)',
         borderRadius: 3,
@@ -73,6 +70,20 @@ const styles = theme => ({
     labelClear: {
         textTransform: 'capitalize',
     },
+    containerTable: {
+        maxHeight: 440,
+      },
+      table :{
+          background:'#D3D3D3'
+      },
+      overrides: {
+        // Style sheet name ⚛️
+        TableHead: {
+          // Name of the rule
+          background: '#D3D3D3',
+          
+        },
+      },
 });
 
 
@@ -279,39 +290,44 @@ console.log('button ' + button)
                         <Fade in={openModal}>
                             {step > 0 && step === equations.length
                                 ? <div className={classes.paper}>
-                                    <TableContainer component={Paper} >
-                                        <Table className={classes.table} size="small" aria-label="a dense table">
+                                    <TableContainer component={Paper} className={classes.containerTable} >
+                                        <Table size="small" stickyHeader aria-label="sticky table"  >
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell>Equation</TableCell>
-                                                    <TableCell align="right">Student Answer</TableCell>
-                                                    <TableCell align="right">Answer</TableCell>
+                                                    <TableCell align="center">Equation</TableCell>
+                                                    <TableCell align="center">Student Answer</TableCell>
+                                                    <TableCell align="center">ComputerAnswer</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
                                                 {equations.map((row, index) => (
-                                                    <TableRow key={index} style={row.correctAnswer === row.studentAnswer ? { backgroundColor: 'green' } : { backgroundColor: 'red' }}>
-                                                        <TableCell component="th" scope="row">
+                                                    <TableRow key={index} class={row.correctAnswer === row.studentAnswer ? 'correct' : 'wrong'}>
+                                                        <TableCell component="th" scope="row" align="center" class='equations'>
                                                             <div dangerouslySetInnerHTML={{ __html: `${row.equation}` }} />
                                                         </TableCell>
-                                                        <TableCell align="right">{row.studentAnswer}</TableCell>
-                                                        <TableCell align="right">{row.correctAnswer}</TableCell>
+                                                        <TableCell align="center">{row.studentAnswer}</TableCell>
+                                                        <TableCell align="center">{row.correctAnswer}</TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
-                                    <Button onClick={this.handleModalClose}>CLOSE</Button>
+                                    <br />
+                                    <Container align="center">
+                                    <Button 
+                                     classes={{
+                                        root: classes.rootClear, // class name, e.g. `classes-nesting-root-x`
+                                        label: classes.labelClear, // class name, e.g. `classes-nesting-label-x`
+                                      }}onClick={this.handleModalClose}>CLOSE</Button>
+                                    </Container>
                                 </div>
                                 : <div className={classes.paperDisplay}>
                                     <IconButton aria-label="close" className={classes.closeButton} onClick={this.handleModalClose}>
                                         <CloseIcon />
                                     </IconButton>
                                     <div className={classes.root}>
-
-                                        <div>{step + 1}/{equations.length}</div>
-
-                                        <div><h2 dangerouslySetInnerHTML={{ __html: `${equations[step].equation}` }}></h2></div>
+                                        <div>{step + 1} of {equations.length}</div>
+                                        <div class='equation-display'><h2 dangerouslySetInnerHTML={{ __html: `${equations[step].equation}` }}></h2></div>
                                         <div class="calculator">
                                             <input type="number" readonly style={{ padding: '20px' }} 
                                             value={inputNumber} onChange={() => { }} onKeyPress={this.handleKeyPad}

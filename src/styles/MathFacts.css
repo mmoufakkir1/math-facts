@@ -41,6 +41,16 @@ body          {
   border-radius: 0;
 }
 
+.equation-display{
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2px;
+  font-size: medium;
+  width: 200px; 
+  text-align: center;
+  margin-bottom: 2px;
+}
+
 .calc-button  {
   background: rgba(0, 0, 0, 0.5); /* light background with opacity 50% */
   border: 1px solid #111; /* black border */
@@ -80,3 +90,30 @@ body          {
   grid-column:4;
   background: #28D060;
 }
+
+
+  @media(max-width: 600px){
+    .table{	
+      width: 270px; 
+    }
+  }
+  
+  @media(min-width: 600px){
+    .table{	
+      width: 400px; 
+    }
+  } 
+
+  .correct{ 
+    background-color: rgb(135, 231, 167); 
+  } 
+  .wrong{
+     background-color: rgb(235, 116, 116); 
+    }
+    .tableHeader ,.equations{
+      background-color: lightgray;
+      font-weight: bolder;
+      font-size: 16px;
+      flex-wrap: wrap;
+      padding: 6px 2px; 
+    }
