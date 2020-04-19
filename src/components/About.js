@@ -57,13 +57,13 @@ class About extends React.Component {
             <Container align="center">
                 <GridContainer justify="center">
                     <GridItem xs={12} sm={12} md={8}>
-                                <h4>{Text1_en().body}</h4>
+                        <h4>{Text1_en().body}</h4>
                     </GridItem>
                 </GridContainer>
                 <div>
                     <h1>Contact Us</h1>
-                    <form className={classes.root} onSubmit={this.handleOnSubmit}>
-                        <TextField id="email" label="Email" type="email" name="email" required />
+                    <form className={classes.root} onSubmit={this.handleOnSubmit} >
+                        <TextField id="email" label="Email" type="email" name="email" required style={{ width: '500px' }} />
                         <TextField
                             id="message"
                             label="Message"
@@ -71,6 +71,7 @@ class About extends React.Component {
                             multiline
                             required
                             rows={4}
+                            style={{ width: '500px' }}
                         />
                         <Button type="submit" disabled={submitting}>
                             Submit
