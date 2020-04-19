@@ -81,7 +81,7 @@ class MathFacts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            operation: 'substract',
+            operation: 'subtract',
             count: 10,
             openModal: false,
             step: 0,
@@ -120,7 +120,7 @@ class MathFacts extends Component {
 
     handleModalClose = () => {
         this.setState({
-            operation: 'substract',
+            operation: 'subtract',
             count: 10,
             openModal: false,
             step: 0,
@@ -230,9 +230,9 @@ console.log('button ' + button)
                 {/* configuration  */}
                 <FormControl component="fieldset">
                     <FormLabel component="legend">Choose Math Operation</FormLabel>
-                    <RadioGroup row aria-label="operation" name="mathOperation" value={operation} defaultValue="substract" onChange={this.handleRadioChange}>
-                        <FormControlLabel value="substract" control={<Radio />} label="substract" />
-                        <FormControlLabel value="addiction" control={<Radio />} label="addiction" />
+                    <RadioGroup row aria-label="operation" name="mathOperation" value={operation} defaultValue="subtract" onChange={this.handleRadioChange}>
+                        <FormControlLabel value="subtract" control={<Radio />} label="subtract" />
+                        <FormControlLabel value="addition" control={<Radio />} label="addition" />
                         <FormControlLabel value="multiplication" control={<Radio />} label="multiplication" />
                         <FormControlLabel value="division" control={<Radio />} label="division" />
                     </RadioGroup>

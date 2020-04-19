@@ -4,10 +4,10 @@ import _ from "lodash";
 export function convertOperation(value) {
     let name;
     switch (value) {
-        case 'substract':
+        case 'subtract':
             name = '-';
             break;
-        case 'addiction':
+        case 'addition':
             name = '+';
             break;
         case 'multiplication':
@@ -20,11 +20,11 @@ export function convertOperation(value) {
     return name;
 }
 
-export function substract() {
+export function subtract() {
     return '<span>&#8722;</span>';
 }
 
-export function addiction() {
+export function addition() {
     return '<span>&#43;</span>';
 }
 
@@ -39,11 +39,11 @@ export function division() {
 export function convertOperationToDisplay(value) {
     let name;
     switch (value) {
-        case 'substract':
-            name = substract();
+        case 'subtract':
+            name = subtract();
             break;
-        case 'addiction':
-            name = addiction();
+        case 'addition':
+            name = addition();
             break;
         case 'multiplication':
             name = multiplication();

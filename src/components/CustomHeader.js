@@ -31,9 +31,7 @@ class CustomerHeader extends Component {
                     <Box my={4}>
                         <header id='animate-area'>
                             <img src={headerImage} className="App-logo" alt="logo" />
-                            {/* <Link variant="button" color="textPrimary" href="/" className={classes.link}> */}
                             <h1>{this.props.label}</h1>
-                            {/* </Link> */}
                         </header>
                     </Box>
                 </Container>

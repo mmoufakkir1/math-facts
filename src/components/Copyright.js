@@ -14,7 +14,7 @@ export default class Copyright extends Component {
         {new Date().getFullYear()}
         {'.'}
         <br />
-        {'Powered By'}
+        {'Powered By '}
         <Link color="inherit" href="https://www.spartanappsolutions.com/">
           Spartan App Solutions
       </Link>
