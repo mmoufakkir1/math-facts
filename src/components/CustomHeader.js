@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Box, Button,withStyles } from '@material-ui/core';
 
-import logo from './../styles/img/header1.jpg';
+import headerImage from './../styles/img/header1.jpg';
 
 const styles = theme => ({
     link: {
@@ -30,7 +30,7 @@ class CustomerHeader extends Component {
                 <Container align="center">
                     <Box my={4}>
                         <header id='animate-area'>
-                            <img src={logo} className="App-logo" alt="logo" />
+                            <img src={headerImage} className="App-logo" alt="logo" />
                             {/* <Link variant="button" color="textPrimary" href="/" className={classes.link}> */}
                             <h1>{this.props.label}</h1>
                             {/* </Link> */}
