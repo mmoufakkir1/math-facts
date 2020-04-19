@@ -3,6 +3,7 @@ import { TextField, Container, Button, withStyles } from '@material-ui/core';
 import GridContainer from "./Grid/GridContainer.js";
 import GridItem from "./Grid/GridItem.js";
 import axios from "axios";
+import { Text1_en, Text2_en, Text3_en } from './../global'
 
 const styles = theme => ({
     root: {
@@ -56,14 +57,7 @@ class About extends React.Component {
             <Container align="center">
                 <GridContainer justify="center">
                     <GridItem xs={12} sm={12} md={8}>
-                        <h2>Instant recall of facts</h2>
-                        <h4> Our mission is to try to get anyone to recall math facts such
-                        as addition, subtraction, multiplication, and division. We believe
-                        recall all math facts allow student to be successful in their lives.
-                        Instant recall of math facts is when anyone know answer without having to count in their heads
-                        or writing it on paper or count by using fingers or pursue other
-                        way to reach to the answer.
-                                    </h4>
+                                <h4>{Text1_en().body}</h4>
                     </GridItem>
                 </GridContainer>
                 <div>

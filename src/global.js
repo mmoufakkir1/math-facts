@@ -91,26 +91,50 @@ export function generateEquations(operation, count) {
     return eq;
 }
 
-export default function validate(values) {
+export function validate(values) {
     const errors = {};
     const requiredFields = [
-      'firstName',
-      'lastName',
-      'email',
-      'notes',
+        'firstName',
+        'lastName',
+        'email',
+        'notes',
     ];
     requiredFields.forEach(field => {
-      if (!values[field]) {
-        errors[field] = 'Required';
-      }
+        if (!values[field]) {
+            errors[field] = 'Required';
+        }
     });
     if (
-      values.email &&
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+        values.email &&
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
     ) {
-      errors.email = 'Invalid email address';
+        errors.email = 'Invalid email address';
     }
     return errors;
-  }
-  
+}
+export function Text1_en() {
+    let title = 'Instant recall of facts';
+    let body = "Our mission is to get anyone to recall math facts such ";
+    body += "as addition, subtraction, multiplication, and division. ";
+    body += "Remember, practice makes perfect!";
+    
+    return { title: title, body: body };
+}
 
+
+export function Text2_en() {
+    let title = 'Study math facts';
+    let body = "When you start using our website and practice everyday math facts, ";
+    body += "it would be easier to master basic math facts, which will be critical to anyone's success. ";
+    body += "Remember, not to solve it on paper, no counting with fingers, use your head to practice math facts.";
+
+    return { title: title, body: body };
+}
+
+export function Text3_en() {
+    let title = 'Why math facts so important?';
+    let body = "Practicing math facts help you in higher level math concept. ";
+    body += "Math facts are critical and used in everyday life.";
+
+    return { title: title, body: body };
+}
