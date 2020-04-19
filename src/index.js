@@ -7,7 +7,10 @@ import configureStore from './store';
 import './styles/index.css';
 import * as serviceWorker from './serviceWorker';
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Route,
+  } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import MenuAppBar from './components/MenuAppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,18 +26,16 @@ const header = 'City of Math';
 
 ReactDOM.render(
   <Provider store={configureStore()}>
-    <BrowserRouter> 
+    <Router> 
       <MenuAppBar />
       <CssBaseline />
       <CustomHeader label={header}/>
-      <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/mathFacts" component={Main} />
         <Route path="/features" component={Features} />
         <Route path="/about" component={About} />
-      </Switch>      
       <Copyright label={header} />
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

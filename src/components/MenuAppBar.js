@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles, AppBar, Toolbar, Typography, Link, Button, Container } from '@material-ui/core';
+import logo from './../styles/img/logo.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +21,10 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     margin: theme.spacing(1, 1.5),
-  }
+  },
+  logo: {
+    maxWidth: 80,
+  },
 }));
 
 export default function MenuAppBar() {
@@ -30,9 +34,10 @@ export default function MenuAppBar() {
     <div className={classes.root}>
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
+        
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
             <Link variant="button" color="textPrimary" href="/" underline="none" className={classes.link}>
-              Welcome to City of Math
+            <img src={logo} alt="logo" className={classes.logo} />
             </Link>
           </Typography>
           <nav>
