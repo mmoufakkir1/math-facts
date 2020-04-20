@@ -290,6 +290,9 @@ console.log('button ' + button)
                         <Fade in={openModal}>
                             {step > 0 && step === equations.length
                                 ? <div className={classes.paper}>
+                                     <Container align="center">
+                                         <p style={{backgroundImage:'linear-gradient(45deg, #b3e6ff 30%, #e6f7ff 90%)',padding: '16px'}}><span> &#128512; </span> Let's Review  <span> &#128512; </span> </p>
+                                     </Container>
                                     <TableContainer component={Paper} className={classes.containerTable} >
                                         <Table size="small" stickyHeader aria-label="sticky table"  >
                                             <TableHead>
