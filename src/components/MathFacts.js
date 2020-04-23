@@ -238,6 +238,7 @@ console.log('button ' + button)
 
         return (
             <Container>
+                <Box p={2} />
                 {/* configuration  */}
                 <FormControl component="fieldset">
                     <FormLabel component="legend">Choose Math Operation</FormLabel>

@@ -114,9 +114,9 @@ export function validate(values) {
 }
 export function Text1_en() {
     let title = 'Instant recall of facts';
-    let body = "Our mission is to get anyone to recall math facts such ";
-    body += "as addition, subtraction, multiplication, and division. ";
-    body += "Remember, practice makes perfect!";
+    let body = "Our mission statement is to get anyone and everyone to be able ";
+    body += "to recall math facts such as addition, subtraction, multiplication, ";
+    body += "and division. Always remember that practice makes perfect!";
     
     return { title: title, body: body };
 }
@@ -124,17 +124,17 @@ export function Text1_en() {
 
 export function Text2_en() {
     let title = 'Study math facts';
-    let body = "When you start using our website and practice everyday math facts, ";
-    body += "it would be easier to master basic math facts, which will be critical to anyone's success. ";
-    body += "Remember, not to solve it on paper, no counting with fingers, use your head to practice math facts.";
+    let body = "When you start using our website and practice math facts everyday, it would benefit any individual ";
+    body += "the ability to master day-to-day basic math facts. This is certainly critical to anyone's success. ";
+    body += "Remember, don't solve it on paper, no finger counting, and only use your  head to practice math facts.";
 
     return { title: title, body: body };
 }
 
 export function Text3_en() {
     let title = 'Why math facts so important?';
-    let body = "Practicing math facts help you in higher level math concept. ";
-    body += "Math facts are critical and used in everyday life.";
+    let body = "Practicing math facts everyday helps you achieve higher math level concepts. ";
+    body += "Math facts are critical for one's personal growth and success as well as used in everyday life.";
 
     return { title: title, body: body };
 }
