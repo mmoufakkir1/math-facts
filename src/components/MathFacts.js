@@ -137,29 +137,32 @@ class MathFacts extends Component {
             operations: [],
             inputNumber: '',
             minutes: MAX_MINUTES,
-            seconds: MAX_SECONDS
+            seconds: MAX_SECONDS,
+            myInterval: ''
         }
     }
 
-    componentDidMount() {
-        this.myInterval = setInterval(this.tick, 1000)
-    }
+    // componentDidMount() {
+    //     let myInterval = setInterval(this.tick, 1000)
+    //     this.setState({myInterval: myInterval});
+    // }
 
     componentWillUnmount() {
-        clearInterval(this.myInterval)
+        const { myInterval } = this.state;
+        clearInterval(myInterval)
     }
 
     tick = () => {
-        const { seconds, minutes } = this.state
-
+        const { seconds, minutes, myInterval } = this.state;
         if (seconds > 0) {
             this.setState(({ seconds }) => ({
                 seconds: seconds - 1
             }))
         }
+
         if (seconds === 0) {
             if (minutes === 0) {
-                clearInterval(this.myInterval)
+                clearInterval(myInterval)
             } else {
                 this.setState(({ minutes }) => ({
                     minutes: minutes - 1,
@@ -170,10 +173,14 @@ class MathFacts extends Component {
     }
 
     startCountDown = () => {
-        this.myInterval = setInterval(this.tick, 1000);
+        let myInterval = setInterval(this.tick, 1000);
+        this.setState({ myInterval: myInterval });
     }
 
-
+    stopCountDown = () => {
+        const { myInterval } = this.state;
+        clearInterval(myInterval)
+    }
 
     // Calculation Config functions
     handleRadioChange = (event) => {
@@ -190,13 +197,10 @@ class MathFacts extends Component {
             minutes: MAX_MINUTES,
             seconds: MAX_SECONDS
         })
+
+        this.startCountDown();
     };
 
-    handleCountChange = (event) => {
-        this.setState({
-            count: event.target.value
-        })
-    };
     // modal functions
     handleModalOpen = () => {
         this.setState({
@@ -215,7 +219,9 @@ class MathFacts extends Component {
             minutes: MAX_MINUTES,
             seconds: MAX_SECONDS
         })
-        this.startCountDown();
+
+
+        this.stopCountDown();
     };
 
     nextStep = () => {
@@ -442,11 +448,11 @@ class MathFacts extends Component {
                                 <IconButton aria-label="close" className={classes.closeButton} onClick={this.handleModalClose}>
                                     <CloseIcon />
                                 </IconButton>
-                                
-                                    {this.showResults()}
-                                    {(!_.isEqual(minutes, 0) || !_.isEqual(seconds, 0))
-                                        ? this.showCalculator() : null}
-                                </div> 
+
+                                {this.showResults()}
+                                {(!_.isEqual(minutes, 0) || !_.isEqual(seconds, 0))
+                                    ? this.showCalculator() : null}
+                            </div>
                         </Fade>
                     </Modal> : null}
                 <div>
