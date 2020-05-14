@@ -138,7 +138,8 @@ class MathFacts extends Component {
             inputNumber: '',
             minutes: MAX_MINUTES,
             seconds: MAX_SECONDS,
-            myInterval: ''
+            myInterval: '',
+            practiceNumber:0
         }
     }
 
@@ -190,9 +191,9 @@ class MathFacts extends Component {
     };
 
     handleSelectChange = () => {
-        const { operation, count } = this.state;
+        const { operation, count,practiceNumber } = this.state;
         this.setState({
-            equations: generateEquations(operation, count),
+            equations: generateEquations(operation, count,practiceNumber),
             openModal: true,
             minutes: MAX_MINUTES,
             seconds: MAX_SECONDS
@@ -397,11 +398,25 @@ class MathFacts extends Component {
         if (_.isEqual(keyCode, 8)) this.backspace();
     }
 
-
+    generateMenuItems = () => {
+        let menuItems = [];
+        for (let i = 0; i < 13; i++) {
+            if (i === 0 )
+            menuItems.push(<MenuItem key={0} value={0}>Random</MenuItem>)
+            else
+            menuItems.push(<MenuItem key={i} value={i}>{i}</MenuItem>)
+        }
+        return menuItems;
+    }
+    
+    handlePracticeNumberChange = (event) => {
+        this.setState({
+            practiceNumber: event.target.value
+        })
+    };
     render() {
         const { classes } = this.props;
-        const { minutes, seconds, operation, count, openModal, step, equations, inputNumber } = this.state;
-
+        const { minutes, seconds, operation, practiceNumber, count,openModal, step, equations, inputNumber } = this.state;
         return (
             <Container>
                 <Box p={2} />
@@ -414,6 +429,16 @@ class MathFacts extends Component {
                         <FormControlLabel value="multiplication" control={<Radio />} label="multiplication" />
                         <FormControlLabel value="division" control={<Radio />} label="division" />
                     </RadioGroup>
+                    <FormLabel>You can Select specific table ?</FormLabel>
+                    <Select
+                        labelId="demo-simple-select-filled-label"
+                        id="demo-simple-select-filled"
+                        value={practiceNumber}
+                        onChange={this.handlePracticeNumberChange}
+                    >
+                        
+                        {this.generateMenuItems()}
+                    </Select>
                     <br />
                     <br />
                     <Button variant="outlined"

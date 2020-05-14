@@ -64,7 +64,7 @@ export function number_test(n) {
         return true;
 };
 
-export function generateEquations(operation, count) {
+export function generateEquations(operation, count, practiceNumber) {
     let eq = [];
     const op = convertOperation(operation);
     const opDisplay = convertOperationToDisplay(operation);
@@ -73,7 +73,8 @@ export function generateEquations(operation, count) {
         while (eq.length < count) {
             let max = 12
             let min = Math.floor(Math.random() * max);
-            let b = Math.floor(Math.random() * (max - min + 1)) + min;
+            let b = _.isEqual(practiceNumber,0) ? Math.floor(Math.random() * (max - min + 1)) + min : practiceNumber;
+
             let eValue = (eval(b + op + min) || 0) + 0;
             let elem = { equation: b + opDisplay + min, correctAnswer: eValue, studentAnswer: 0, operation: op };
             if (!_.includes(eq, elem)) {
